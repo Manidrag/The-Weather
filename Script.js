@@ -175,6 +175,7 @@ async function getWeather() {
             return;
         }
         hourlyWeatherdata = data2;
+       
 
         // Daily weather data
         const apiUrl3 = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&appid=${KEYsyy}&units=metric`;
@@ -201,6 +202,7 @@ async function getWeather() {
 }
 
 function displayWeatherCurrent() {
+     console.log(hourlyWeatherdata);
      const currentDate = new Date().toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
