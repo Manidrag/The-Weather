@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="./src/output.css">
-   
+    
    
     <title>Lets Get the Weather</title>
 </head>
@@ -15,7 +15,8 @@
      <header class="flex bg-amber-400 justify-center border-b-4 border-amber-500 shadow-md p-4">
     <h1 class="text-4xl font-bold text-slate-800 tracking-wide">Weather Report</h1>
   </header>
-    <div id="locationToggleCard" class="fixed top-6 left-6 z-50">
+  <!-- Floating Location Card/Button -->
+    <div id="locationToggleCard" class="fixed top-6 left-6 z-50 mt-14">
   <button id="locationToggleBtn" class="flex items-center gap-2 z-50 pointer bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-full shadow-lg transition-colors duration-200 " >
     <span id="locationToggleIcon">📍</span>
     <span id="locationToggleText">Location Off</span>
@@ -23,50 +24,37 @@
 </div>
   
   <main class="flex flex-col items-center justify-center py-10">
-    
-    <section id="searchweather" class="bg-white/80 rounded-3xl shadow-xl p-8 w-full max-w-md flex flex-col items-center gap-4 border border-blue-200 mt-8">
-      <h2 class="text-2xl font-semibold text-blue-700">Weather Search</h2>
-       <input list="cityOptions" id="city" name="cityInput" type="search" title="city" class="w-full p-2 border border-blue-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter city name">
-      <datalist id="cityOptions">
-        <!-- You can populate these options statically or dynamically with JavaScript -->
-        <option value="New York">
-        <option value="London">
-        <option value="Paris">
-        <option value="Tokyo">
-      </datalist>
-      <button id="getWeatherButton" class="bg-blue-500 hover:bg-blue-700 transition-colors duration-200 text-white font-medium px-6 py-3 rounded-full shadow-md mt-2" >
-        Get Weather
-      </button>
-    </section>
-    <div id="currentWeather"></div>
-    <div id="hourlyForecast" class="w-full overflow-x-auto mt-6 flex justify-center items-center">
-        <h1 class="text-2xl font-semibold text-blue-700 ju">Hourly Forecast</h1>
-    </div>
-   
-  </main>
 
-   <div class="min-w-[200px] w-max bg-gradient-to-br from-blue-100 to-amber-100 rounded-2xl shadow-lg p-5 flex flex-col items-center border border-blue-200 transition-transform hover:scale-105 duration-200">
-  <p class="font-semibold text-blue-700 text-lg mb-2">
-    ${new Date(hour.dt * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-  </p>
-  <div class="flex items-center gap-2 mb-2">
-    <span class="text-3xl">🌡️</span>
-    <span class="text-xl font-bold text-blue-600">${hour.main.temp}°C</span>
-  </div>
-  <p class="flex items-center gap-1 text-blue-800 mb-1">
-    <span class="text-lg">💧</span> <span>${hour.main.humidity}%</span>
-  </p>
-  <p class="flex items-center gap-1 text-blue-800 mb-1">
-    <span class="text-lg">💨</span> <span>${hour.wind.speed} m/s</span>
-  </p>
-  <p class="italic text-slate-600 mt-2 text-center capitalize">
-    ${hour.weather[0].description}
-  </p>
+   <div id="searchweather" class="bg-white/90 rounded-full shadow-xl p-4 max-w-3xl mx-auto flex items-center gap-4 border border-blue-200 mt-4 hover:shadow-2xl transition-all duration-300">
+    <input list="cityOptions" id="city" name="cityInput" type="search" title="city" 
+        class="w-full p-3 rounded-full bg-transparent placeholder-blue-400 text-blue-700 focus:outline-none" 
+        placeholder="🔍 Search for a city...">
+    <!--drop down of recent cities-->
+        <datalist id="cityOptions">
+    </datalist>
+    <button id="getWeatherButton" 
+        class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium px-6 py-3 rounded-full shadow-md transition-all duration-200 flex items-center gap-2">
+        <span ">Search</span>
+    </button>
+    
 </div>
+    <div id="currentWeather"></div>
+    
+    <div id="hourlyForecast" class="w-full ">
+            
+    </div>
+    <div id="dailyForecast" class="w-full "></div>
+
+
+  </main>
+  <!-- Loading Spinner -->
+<div id="loadingSpinner" class="fixed inset-0 flex items-center justify-center bg-white/70 z-50 hidden">
+  <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-blue-500 border-solid"></div>
+</div>
+
+
   <script src="config.js"></script>
     <script src="Script.js"></script>
-
-
-  
 </body>
+
 </html>
