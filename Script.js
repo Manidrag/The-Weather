@@ -35,7 +35,8 @@ function setWeatherBackground(temp, weatherMain, weatherDescription = "") {
 let latitude;
 let longitude;
 let locationOn = false;
-// Remove the parentheses () after getlocation
+//get location
+// Get location based on user permission
 document.querySelector("#locationToggleBtn").addEventListener("click", getlocation);
 function getlocation() {
 
@@ -74,7 +75,7 @@ function getlocation() {
         document.querySelector("#dailyForecast").innerHTML = "";
     }
 }
-//Dropdown for recent cities
+
 
 // Save recent city and update datalist
 function saveRecentCity(city) {
@@ -96,7 +97,6 @@ function updateDatalist() {
 updateDatalist();
 
 
-// Get API Key
 // Get User Location based on Permission
 const weatheryk = document.querySelector("#getWeatherButton").addEventListener("click", () => {
     locationOn = false;
@@ -200,7 +200,7 @@ async function getWeather() {
         hideLoading();
     }
 }
-
+// Display current weather data
 function displayWeatherCurrent() {
      console.log(hourlyWeatherdata);
      const currentDate = new Date().toLocaleDateString('en-US', {
@@ -286,7 +286,7 @@ function displayWeatherHourly() {
         `;
         grid.appendChild(hourDiv);
     });
-
+ // Add scroll functionality
    
     const scrollLeftBtn = document.getElementById('scrollLeft');
     const scrollRightBtn = document.getElementById('scrollRight');
