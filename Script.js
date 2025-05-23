@@ -1,14 +1,50 @@
+
+
+//background
+function setWeatherBackground(temp, weatherMain, weatherDescription = "") {
+    const body = document.body;
+    // Remove all possible weather backgrounds first
+    body.classList.remove(
+        "bg-snow", "bg-meteor", "bg-rain", "bg-cloudy", "bg-sunny", "bg-thunder", "bg-mist", "bg-drizzle", "bg-default"
+    );
+
+    const main = weatherMain.toLowerCase();
+    const desc = weatherDescription.toLowerCase();
+
+    if (temp <= 1 || main.includes("snow") || desc.includes("snow")) {
+        body.classList.add("bg-snow");
+    } else if (temp >= 40) {
+        body.classList.add("bg-meteor");
+    } else if (main.includes("clear") || desc.includes("clear")) {
+        body.classList.add("bg-sunny");
+    } else if (main.includes("cloud") || desc.includes("cloud")) {
+        body.classList.add("bg-cloudy");
+    } else if (main.includes("rain") || desc.includes("rain")) {
+        body.classList.add("bg-rain");
+    } else if (main.includes("thunder") || desc.includes("thunder")) {
+        body.classList.add("bg-thunder");
+    } else if (main.includes("drizzle") || desc.includes("drizzle")) {
+        body.classList.add("bg-drizzle");
+    } else if (main.includes("mist") || desc.includes("mist") || main.includes("fog") || desc.includes("fog") || main.includes("haze") || desc.includes("haze")) {
+        body.classList.add("bg-mist");
+    } else {
+        body.classList.add("bg-default"); 
+    }
+}
+
 let latitude;
 let longitude;
 let locationOn = false;
 // Remove the parentheses () after getlocation
 document.querySelector("#locationToggleBtn").addEventListener("click", getlocation);
 function getlocation() {
+
     locationOn = !locationOn;
     const icon = document.getElementById("locationToggleIcon");
     const text = document.getElementById("locationToggleText");
     
     if (locationOn) {
+        showLoading();
         icon.textContent = "✅";
         text.textContent = "Location On";
         if (navigator.geolocation) {
@@ -16,6 +52,7 @@ function getlocation() {
                 function(position) {
                     latitude = position.coords.latitude;
                     longitude = position.coords.longitude;
+                    hideLoading();
                     getCity();
                 },
                 function(error) {
@@ -81,6 +118,7 @@ async function getCity() {
     const apiUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&appid=${KEYsyy}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
+    
     if (response.status !== 200 || !data[0]) {
         alert("Location not found. Please try again.");
         hideLoading();
@@ -125,6 +163,7 @@ async function getWeather() {
             return;
         }
         currentWeatherdata = data;
+        setWeatherBackground(currentWeatherdata.main.temp, currentWeatherdata.weather[0].main, currentWeatherdata.weather[0].description);
 
         // Use free 3-hourly forecast endpoint
         const apiUrl2 = `https://api.openweathermap.org/data/2.5/forecast/hourly?q=${city}&appid=${KEYsyy}&units=metric`;
@@ -193,6 +232,7 @@ function displayWeatherCurrent() {
             <p class="text-lg text-amber-700">Feels Like: ${currentWeatherdata.main.feels_like}°C</p>
         </div>
     `;
+   
 }
 
 // Display hourly weather data
@@ -255,7 +295,7 @@ function displayWeatherHourly() {
     
     scrollLeftBtn.onclick = () => {
         if (currentCard > 0) {
-            currentCard = Math.max(0, currentCard - 3);
+            currentCard = Math.max(0, currentCard - 1);
             container.children[currentCard].scrollIntoView({ 
                 behavior: 'smooth',
                 block: 'nearest',
@@ -266,7 +306,7 @@ function displayWeatherHourly() {
 
     scrollRightBtn.onclick = () => {
         if (currentCard < totalCards - 1) {
-            currentCard = Math.min(totalCards - 1, currentCard + 3);
+            currentCard = Math.min(totalCards - 1, currentCard + 1);
             container.children[currentCard].scrollIntoView({ 
                 behavior: 'smooth',
                 block: 'nearest',
@@ -341,7 +381,7 @@ function displayWeatherDaily() {
 
     scrollLeftBtn.onclick = () => {
         if (currentCard > 0) {
-            currentCard = Math.max(0, currentCard - 3);
+            currentCard = Math.max(0, currentCard - 1);
             container.children[currentCard].scrollIntoView({ 
                 behavior: 'smooth',
                 block: 'nearest',
@@ -352,7 +392,7 @@ function displayWeatherDaily() {
 
     scrollRightBtn.onclick = () => {
         if (currentCard < totalCards - 1) {
-            currentCard = Math.min(totalCards - 1, currentCard + 3);
+            currentCard = Math.min(totalCards - 1, currentCard + 1);
             container.children[currentCard].scrollIntoView({ 
                 behavior: 'smooth',
                 block: 'nearest',

@@ -1,0 +1,9 @@
+.bg-snow    { background-image: url('./src/Snow.jpg'); background-size: cover; }
+.bg-meteor  { background-image: url('./src/sunn----yclear_sunn.jpg'); background-size: cover; }
+.bg-sunny   { background-image: url('./src/sunn----yclear_sunn.jpg'); background-size: cover; }
+.bg-rain    { background-image: url('./src/Raining.jpg'); background-size: cover; }
+.bg-cloudy  { background-image: url('./src/cloud.jpg'); background-size: cover; }
+.bg-thunder { background-image: url('./src/Thunder.jpg'); background-size: cover; }
+.bg-drizzle { background-image: url('./src/rain.jpg'); background-size: cover; }
+.bg-mist    { background-image: url('./src/themist.png'); background-size: cover; }
+.bg-default { background-image: url('./src/sun.jpg'); background-size: cover; }
